@@ -9,6 +9,9 @@ public enum SideContactType
   wallEast,
   wallSouth,
   wallWest,
+  emptyVertical,
+  emptyHorizontal,
+ 
   empty
 }
 
