@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 223d73b12eed16e41a69ba288952c935, type: 3}
-  m_Name: WallEast
+  m_Name: Replacement
   m_EditorClassIdentifier: 
-  _modulePrefab: {fileID: 4584252743427564070, guid: 5f0f20d629af5544ba3dd9233eb52bd9, type: 3}
-  _northContact: 2
+  _modulePrefab: {fileID: 7824453995123048756, guid: f43020ba28de23a4f98275de9e0f1832, type: 3}
+  _northContact: 0
   _eastContact: 0
-  _southContact: 2
-  _westContact: 5
+  _southContact: 0
+  _westContact: 0

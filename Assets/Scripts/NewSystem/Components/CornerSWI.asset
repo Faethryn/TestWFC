@@ -16,4 +16,4 @@ MonoBehaviour:
   _northContact: 2
   _eastContact: 1
   _southContact: 5
-  _westContact: 6
+  _westContact: 5

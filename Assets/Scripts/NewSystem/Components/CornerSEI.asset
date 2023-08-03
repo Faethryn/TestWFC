@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _modulePrefab: {fileID: 5120029606095927831, guid: 4c47cace988cdd64c8fef1ee37b52268, type: 3}
   _northContact: 4
-  _eastContact: 6
+  _eastContact: 5
   _southContact: 5
   _westContact: 1

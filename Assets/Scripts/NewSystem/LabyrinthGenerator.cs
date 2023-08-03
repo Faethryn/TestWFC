@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LabyrinthGenerator : MonoBehaviour
@@ -13,6 +15,7 @@ public class LabyrinthGenerator : MonoBehaviour
 
     public List<List<LabyrinthTile>> TileGrid = new List<List<LabyrinthTile>>();
 
+   
     public List<LabyrinthTile> CompletedTiles = new List<LabyrinthTile>();
 
 
@@ -20,28 +23,38 @@ public class LabyrinthGenerator : MonoBehaviour
 
     private bool _isDone = false;
 
+
+    [SerializeField]
+    public float _tileSize = 2.0f;
+
+
+    public List<GameObject> _SpawnedTiles = new List<GameObject>();
+
+    [SerializeField] public TileComponent replacement;
+
+ 
+
+
+
     void Start()
     {
 
 
-        for (int i = 0; i < GridSize.x; i++)
+        for (int x = 0; x < GridSize.x; x++)
         {
             TileGrid.Add(new List<LabyrinthTile>());
 
-            for (int j = 0; j < GridSize.y; j++)
+            for (int y = 0; y < GridSize.y; y++)
             {
 
                 LabyrinthTile newTile = new LabyrinthTile();
 
-                newTile.Coordinates = new Vector2(i, j);
+                newTile.Coordinates = new Vector2(x, y);
 
                 newTile.parent = this;
-                foreach (TileComponent module in PossibleComponents)
-                {
-                    newTile.PossibleIds.Add(module);
-                }
+                newTile.PossibleIds.AddRange( PossibleComponents);
 
-                TileGrid[i].Add(newTile);
+                TileGrid[x].Add(newTile);
 
 
             }
@@ -51,8 +64,7 @@ public class LabyrinthGenerator : MonoBehaviour
 
          amountOfTiles = (int)(GridSize.x * GridSize.y);
 
-
-
+       
 
         //foreach(List<Tile> tileRow in TileGrid) 
         //{
@@ -71,21 +83,17 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         if(!_isDone)
         {
-            LabyrinthTile chosenTile = TileGrid[0][0];
+            LabyrinthTile chosenTile = null;
 
 
-            if(currentUpdate != 0)
-            {
-            chosenTile = ChooseLowestPossibleID(chosenTile);
+            chosenTile = ChooseLowestPossibleID();
 
-            }
-
-            currentUpdate++;
+           
 
 
             if (CompletedTiles.Contains(chosenTile))
             {
-
+                Debug.LogError("you gave me a completed tile");
             }
             else
             {
@@ -95,34 +103,56 @@ public class LabyrinthGenerator : MonoBehaviour
 
            
         }
+        else
+        {
+            Debug.Log("done");
+        }
         
      
 
-        if(CompletedTiles.Count == amountOfTiles)
+        if(CompletedTiles.Count == (GridSize.x * GridSize.y))
         {
             _isDone = true;
+            Debug.Log("done");
         }
 
+       
 
     }
 
-    private LabyrinthTile ChooseLowestPossibleID(LabyrinthTile startTile)
+    private LabyrinthTile ChooseLowestPossibleID()
     {
         
+        LabyrinthTile tempTile = null;
+
+        List<LabyrinthTile> uncompletedTiles = new List<LabyrinthTile>();
 
         foreach (List<LabyrinthTile> tileList in TileGrid)
         {
             foreach (LabyrinthTile tile in tileList)
             {
-                if (tile.PossibleIds.Count >= startTile.PossibleIds.Count  )
+
+                if ( !(CompletedTiles.Contains(tile)) )
                 {
-                    startTile = tile;
+                   uncompletedTiles.Add(tile);
                 }
             }
         }
 
-        return startTile;
+        int lowestIDCount = uncompletedTiles.Min(tile => tile.PossibleIds.Count);
+
+        tempTile = uncompletedTiles.First(tile => tile.PossibleIds.Count == lowestIDCount);
+
+
+       
+
+        return tempTile;
     }
+
+
+   
+
+    
 
     public LabyrinthTile GetTileAtCoord(Vector2 coord)
     {
@@ -134,6 +164,17 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         TileGrid.Clear();
         CompletedTiles.Clear();
+
+        foreach(GameObject tile in _SpawnedTiles)
+        {
+            Destroy(tile);
+        }
+
+        _SpawnedTiles.Clear();
+        Debug.LogError("restarting");
+      
+        
+        
         Start();
     }
 
