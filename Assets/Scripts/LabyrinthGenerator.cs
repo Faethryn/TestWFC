@@ -8,6 +8,14 @@ public class LabyrinthGenerator : MonoBehaviour
 {
     [SerializeField]
   public List<TileComponent> PossibleComponents = new List<TileComponent>();
+    [SerializeField]
+    private TileComponent _topComponent;
+    [SerializeField]
+    private TileComponent _bottomComponent;
+    [SerializeField]
+    private TileComponent _rightComponent;
+    [SerializeField]
+    private   TileComponent _leftComponent;
 
     public Vector2Int GridSize;
 
@@ -42,6 +50,7 @@ public class LabyrinthGenerator : MonoBehaviour
 
 
         InizializeMap();
+        ExtraStartRules();
         FillCells();
         CreateMap();
 
@@ -85,6 +94,60 @@ public class LabyrinthGenerator : MonoBehaviour
         amountOfTiles = (int)(GridSize.x * GridSize.y);
     }
 
+
+    void ExtraStartRules()
+    {
+
+        SetEdges();
+
+    }
+
+    void SetEdges()
+    {
+        LabyrinthTile tile = null;
+        for(int x = 0; x < GridSize.x ; x++)
+        {
+            for( int y = 0; y < GridSize.y ; y++  )
+            {
+
+                if(y == 0 && (x > 0 && x < (GridSize.x -1)))
+                {
+                    tile = GetTileAtCoord(new Vector2Int(x, y));
+
+                    tile.TileComponentOverride(_bottomComponent);
+                }
+
+                if(y == (GridSize.y -1) && (x > 0 && x < (GridSize.x - 1))) 
+                {
+
+                    tile = GetTileAtCoord(new Vector2Int(x, y));
+
+                    tile.TileComponentOverride(_topComponent);
+
+                }
+
+                if (x == (GridSize.x - 1) && (y > 0 && y < (GridSize.y - 1)))
+                {
+
+                    tile = GetTileAtCoord(new Vector2Int(x, y));
+
+                    tile.TileComponentOverride(_rightComponent);
+
+                }
+                if (x == 0 && (y > 0 && y < (GridSize.y - 1)))
+                {
+
+                    tile = GetTileAtCoord(new Vector2Int(x, y));
+
+                    tile.TileComponentOverride(_leftComponent);
+
+                }
+
+            }
+
+        }
+
+    }
 
     void FillCells()
     {

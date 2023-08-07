@@ -142,6 +142,26 @@ public class LabyrinthTile
         spawnedVersion.transform.parent = parent.gameObject.transform;
     }
 
+
+
+    public bool TileComponentOverride(TileComponent tileComponent)
+    {
+        var states = new List<TileComponent>(PossibleIds);
+        while (states.Count > 0)
+        {
+            var selectState = tileComponent;
+            PossibleIds = new List<TileComponent>() { selectState };
+            if (!TryUpdateAdjacentTiles(this))
+            {
+                states.Remove(selectState);
+            }
+            else return true;
+        }
+        return false;
+
+    }
+
+
 }
 
 
