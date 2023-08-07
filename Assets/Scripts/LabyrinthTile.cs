@@ -95,7 +95,9 @@ public class LabyrinthTile
            
             return !otherTile.PossibleIds.Any(otherState =>
 
-                thisState.IsMatchingModules(otherState, directionToPreviusCell) 
+                thisState.IsMatchingModules(otherState, directionToPreviusCell) &&
+                thisState.DoExtraConditionsMatch(parent, this)
+
                 );
         });
 

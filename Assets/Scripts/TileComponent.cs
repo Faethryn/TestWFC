@@ -9,24 +9,25 @@ public class TileComponent : ScriptableObject
     public GameObject _modulePrefab;
 
     [SerializeField]
-  public  ContactType _northContact;
+    public ContactType _northContact;
 
     [SerializeField]
- public ContactType _eastContact;
+    public ContactType _eastContact;
     [SerializeField]
-  public ContactType _southContact;
+    public ContactType _southContact;
     [SerializeField]
- public ContactType _westContact;
+    public ContactType _westContact;
 
 
 
+    [SerializeField]
+    public List<IExtraCondition> _extraConditions = new List<IExtraCondition>();
 
-   
 
 
     public bool IsMatchingModules(TileComponent otherTileState, Vector2Int side)
     {
-        if (side == new Vector2(0,1))
+        if (side == new Vector2(0, 1))
         {
 
             return _northContact.IsMatchingContacts(otherTileState._southContact);
@@ -56,7 +57,7 @@ public class TileComponent : ScriptableObject
 
 
 
-                    if (side == new Vector2Int(0,-1))
+                    if (side == new Vector2Int(0, -1))
                     {
                         return _southContact.IsMatchingContacts(otherTileState._northContact);
 
@@ -64,7 +65,7 @@ public class TileComponent : ScriptableObject
                     else
                     {
 
-                    return false;
+                        return false;
 
                     }
 
@@ -79,6 +80,31 @@ public class TileComponent : ScriptableObject
 
         }
     }
+
+    public bool DoExtraConditionsMatch(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo)
+    {
+
+        if(_extraConditions.Count > 0)
+        {
+
+            foreach (IExtraCondition condition in _extraConditions)
+            {
+                if(condition.ConditionCheck(generator, tileToApplyTo))
+                {
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
+
+        return true;
+    }
+
 
    
 
