@@ -54,6 +54,7 @@ public class LabyrinthGenerator : MonoBehaviour
         FillCells();
         CreateMap();
 
+        SaveToTexture.SaveTilesToTexture(GridSize, TileGrid, this);
 
         //foreach(List<Tile> tileRow in TileGrid) 
         //{

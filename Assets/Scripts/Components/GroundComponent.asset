@@ -17,3 +17,5 @@ MonoBehaviour:
   _eastContact: {fileID: 11400000, guid: 37589c9498e4e804b8ffc48199696d57, type: 2}
   _southContact: {fileID: 11400000, guid: 37589c9498e4e804b8ffc48199696d57, type: 2}
   _westContact: {fileID: 11400000, guid: 37589c9498e4e804b8ffc48199696d57, type: 2}
+  _extraConditions:
+  - {fileID: 11400000, guid: 6dd5f0dbcde68e14d922696053c78f30, type: 2}

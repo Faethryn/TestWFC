@@ -23,7 +23,7 @@ public class TileComponent : ScriptableObject
 
     [SerializeField]
     [SerializeReference]
-    public List<ExtraCondition> _extraConditions = new List<ExtraCondition> { new MinimumOfTyleType() };
+    public List<ExtraCondition> _extraConditions = new List<ExtraCondition>();
 
 
 
@@ -86,22 +86,22 @@ public class TileComponent : ScriptableObject
     public bool DoExtraConditionsMatch(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo)
     {
 
-        //if (_extraConditions.Count > 0)
-        //{
+        if (_extraConditions.Count > 0)
+        {
 
-        //    foreach (ExtraCondition condition in _extraConditions)
-        //    {
-        //        if (condition.ConditionCheck(generator, tileToApplyTo))
-        //        {
+            foreach (ExtraCondition condition in _extraConditions)
+            {
+                if (condition.ConditionCheck(generator, tileToApplyTo))
+                {
 
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
-        //}
+        }
 
 
         return true;
