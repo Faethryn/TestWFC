@@ -25,6 +25,10 @@ public class LabyrinthTile
     GameObject spawnedVersion = null;
 
 
+    public LabyrinthTile(Vector2Int positionInMap)
+    {
+        Coordinates = positionInMap;
+    }
 
 
     public LabyrinthTile(LabyrinthGenerator parentGenerator, Vector2Int positionInMap, List<TileComponent> possibleIds)
@@ -137,6 +141,15 @@ public class LabyrinthTile
     {
         var localPosition = new Vector3(Coordinates.x * parent._tileSize, 0, Coordinates.y * parent._tileSize);
       spawnedVersion =  GameObject.Instantiate(PossibleIds[0]._modulePrefab);
+
+        spawnedVersion.transform.position = localPosition;
+        spawnedVersion.transform.parent = parent.gameObject.transform;
+    }
+
+    public void CreateSelf(float tileSize, TileComponent forcedComponent, GameObject parent)
+    {
+        var localPosition = new Vector3(Coordinates.x * tileSize, 0, Coordinates.y * tileSize);
+        spawnedVersion = GameObject.Instantiate(forcedComponent._modulePrefab);
 
         spawnedVersion.transform.position = localPosition;
         spawnedVersion.transform.parent = parent.gameObject.transform;

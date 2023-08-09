@@ -44,12 +44,13 @@ public class LabyrinthGenerator : MonoBehaviour
 
 
 
+
     void Start()
     {
 
 
 
-        InizializeMap();
+        InitializeMap();
         ExtraStartRules();
         FillCells();
         CreateMap();
@@ -71,7 +72,7 @@ public class LabyrinthGenerator : MonoBehaviour
 
 
 
-  private void  InizializeMap()
+  private void  InitializeMap()
     {
         for (int x = 0; x < GridSize.x; x++)
         {
