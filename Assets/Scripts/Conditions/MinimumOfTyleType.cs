@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MinimumOfTyleType : IExtraCondition
+
+public class MinimumOfTyleType : ExtraCondition
 {
+
+    public bool ApplyMinimum = true;
+
     public TileComponent neighBourComponent;
 
     public int minimumOfType = 1;
 
 
-    public bool ConditionCheck(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo)
+    public override bool ConditionCheck(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo)
     {
 
         int numberOfMatchingTiles = 0;
@@ -42,7 +46,13 @@ public class MinimumOfTyleType : IExtraCondition
            
             return true;
         }
-
+        else
+        {
         return false;
+
+        }
+
     }
+
+   
 }

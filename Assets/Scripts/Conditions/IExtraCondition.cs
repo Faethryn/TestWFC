@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public interface IExtraCondition  
+[Serializable]
+public abstract class ExtraCondition  
 {
-  public bool ConditionCheck(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo);
+    public abstract bool ConditionCheck(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo);
+   
 }
