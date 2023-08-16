@@ -7,6 +7,7 @@ using System.Threading;
 using System;
 using JetBrains.Annotations;
 using System.Diagnostics.Tracing;
+using UnityEngine.UI;
 
 public class LabyrinthGenerator : MonoBehaviour
 {
@@ -44,9 +45,9 @@ public class LabyrinthGenerator : MonoBehaviour
 
     [SerializeField] public TileComponent replacement;
 
- 
 
-
+    [SerializeField]
+    private Image _image;
 
 
     void Start()
@@ -84,8 +85,14 @@ public class LabyrinthGenerator : MonoBehaviour
 
     }
 
-  
 
+    private void Update()
+    {
+        _image.fillAmount = completion;
+    }
+
+
+    private float completion = 0f;
 
     IEnumerator ThreadRun()
     {
@@ -97,11 +104,15 @@ public class LabyrinthGenerator : MonoBehaviour
         yield return new WaitUntil(() => (myThread.IsAlive == false));
 
         ThreadDone();
+        completion = 1f;
 
         yield return null;
 
     }
 
+    
+
+   
    
     
 
@@ -205,15 +216,20 @@ public class LabyrinthGenerator : MonoBehaviour
             if (cellsWithUnselectedState.Length == 0)
                 return;
 
+            completion = ((float)amountOfTiles - (float)cellsWithUnselectedState.Count())   / (float)amountOfTiles;
+
             var minStatesCount = cellsWithUnselectedState.Min(c => c.PossibleIds.Count());
 
             cell = cellsWithUnselectedState.First(c => c.PossibleIds.Count() == minStatesCount);
         }
         while (cell.TrySelectState( ));
+
+        
+
     }
 
 
-   
+
 
 
 
