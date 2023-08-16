@@ -349,7 +349,7 @@ MonoBehaviour:
   _bottomComponent: {fileID: 11400000, guid: 7d59e5e1be4e84e4baed7da2fe2c780d, type: 2}
   _rightComponent: {fileID: 11400000, guid: efe459cafa59d51428ee1fe4621f8ee2, type: 2}
   _leftComponent: {fileID: 11400000, guid: f8eeb203ae5798e42994eb8646f12d59, type: 2}
-  GridSize: {x: 32, y: 32}
+  GridSize: {x: 128, y: 128}
   _tileSize: 2
   _SpawnedTiles: []
   replacement: {fileID: 11400000, guid: f14db64f460fa8949bfb0b26e3c416a3, type: 2}

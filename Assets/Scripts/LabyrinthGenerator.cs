@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Threading;
+using System;
+using JetBrains.Annotations;
+using System.Diagnostics.Tracing;
 
 public class LabyrinthGenerator : MonoBehaviour
 {
@@ -50,12 +54,22 @@ public class LabyrinthGenerator : MonoBehaviour
 
 
 
+      
+
         InitializeMap();
         ExtraStartRules();
-        FillCells();
-        CreateMap();
 
-        SaveToTexture.SaveTilesToTexture(GridSize, TileGrid, this);
+
+        StartCoroutine(ThreadRun());
+       
+
+        
+      
+
+      
+       
+       
+
 
         //foreach(List<Tile> tileRow in TileGrid) 
         //{
@@ -70,9 +84,38 @@ public class LabyrinthGenerator : MonoBehaviour
 
     }
 
+  
 
 
-  private void  InitializeMap()
+    IEnumerator ThreadRun()
+    {
+
+        Thread myThread = new Thread(FillCells);
+
+        myThread.Start();
+        
+        yield return new WaitUntil(() => (myThread.IsAlive == false));
+
+        ThreadDone();
+
+        yield return null;
+
+    }
+
+   
+    
+
+
+    private void ThreadDone()
+    {
+        CreateMap();
+        SaveToTexture.SaveTilesToTexture(GridSize, TileGrid, this);
+
+    }
+
+
+
+    private void  InitializeMap()
     {
         for (int x = 0; x < GridSize.x; x++)
         {
@@ -169,6 +212,15 @@ public class LabyrinthGenerator : MonoBehaviour
         while (cell.TrySelectState( ));
     }
 
+
+   
+
+
+
+
+
+
+
     void CreateMap()
     {
         for (int i = 0; i < GridSize.x; i++)
@@ -194,6 +246,25 @@ public class LabyrinthGenerator : MonoBehaviour
     }
 
    
+
+
+    public class ThreadFinishedEventargs : EventArgs
+    {
+        public ThreadFinishedEventargs()
+        {
+
+        }
+        
+
+    }
+
+    public EventHandler<ThreadFinishedEventargs> ThreadFinished;
+
+    protected virtual void OnThreadFinished(ThreadFinishedEventargs eventargs)
+    {
+        var handler = ThreadFinished;
+        handler?.Invoke(this, eventargs);
+    }
 
 
 }

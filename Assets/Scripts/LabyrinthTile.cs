@@ -56,7 +56,8 @@ public class LabyrinthTile
         var states = new List<TileComponent>(PossibleIds);
         while (states.Count > 0)
         {
-            var selectState = PossibleIds[Random.Range(0, PossibleIds.Count )] ;
+            System.Random random = new System.Random();
+            var selectState = PossibleIds[random.Next(0, PossibleIds.Count)];
             PossibleIds = new List<TileComponent>() { selectState };
             if (!TryUpdateAdjacentTiles(this))
             {
@@ -65,6 +66,25 @@ public class LabyrinthTile
             else return true;
         }
         return false;
+    }
+
+
+    public IEnumerator TrySelectStateCoroutine()
+    {
+
+        var states = new List<TileComponent>(PossibleIds);
+        while (states.Count > 0)
+        {
+            System.Random random = new System.Random();
+            var selectState = PossibleIds[random.Next(0, PossibleIds.Count)];
+            PossibleIds = new List<TileComponent>() { selectState };
+            if (!TryUpdateAdjacentTiles(this))
+            {
+                states.Remove(selectState);
+            }
+            else yield return true;
+        }
+       yield return false;
     }
 
 
