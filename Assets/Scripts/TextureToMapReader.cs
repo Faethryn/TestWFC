@@ -64,7 +64,7 @@ public class TextureToMapReader : MonoBehaviour
         for(int i = 0; i < TileGrid.Count; i++)
         {
 
-            int id = Mathf.RoundToInt(inputMap.GetPixel(TileGrid[i].Coordinates.x, TileGrid[i].Coordinates.y).r * (float)(PossibleComponents.Count - 1f));
+            int id = Mathf.RoundToInt(inputMap.GetPixel(TileGrid[i].Coordinates.x, TileGrid[i].Coordinates.y).r * 100f);
             Debug.Log(id.ToString());
              TileGrid[i].CreateSelf(_tileSize, PossibleComponents[id], this.gameObject);
 
