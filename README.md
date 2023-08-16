@@ -13,9 +13,15 @@ Once it picks this first tile, it attempts to assign it a random id from its pos
 If this chain is successfull and never returns a false value, the changes are pushed to each tile, and then the generator moves to the next tile with the least ID's.
 If the chain is unsuccessful, the generator takes a step back and does not push changes, retrying with another possible ID. 
 
+
+
 # Map Serialization
 The map saves the ID's of each tile to a texture map, using the red channel as its save position, Due to using a texture to save the map, you are limited to resolutions that are multiples of 2. 
 
 ![Map screenshot](https://github.com/Faethryn/TestWFC/assets/97239542/df81c362-0c78-4f39-b463-ba4a22c8fab6)
 
-![Grid](https://github.com/Faethryn/TestWFC/assets/97239542/11f62d79-314b-4230-ab8d-312d51a494a9)
+
+
+https://github.com/Faethryn/TestWFC/assets/97239542/67f3fcf1-2951-4ac4-9af2-79cd5c0432d8
+
+
