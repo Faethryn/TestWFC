@@ -88,7 +88,11 @@ public class LabyrinthGenerator : MonoBehaviour
 
     private void Update()
     {
+        if(_image != null)
+        {
+
         _image.fillAmount = completion;
+        }
     }
 
 
