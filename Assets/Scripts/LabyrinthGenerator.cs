@@ -9,6 +9,7 @@ using JetBrains.Annotations;
 using System.Diagnostics.Tracing;
 using UnityEngine.UI;
 
+
 public class LabyrinthGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -103,11 +104,20 @@ public class LabyrinthGenerator : MonoBehaviour
 
         Thread myThread = new Thread(FillCells);
 
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+       
+        sw.Start();
         myThread.Start();
         
         yield return new WaitUntil(() => (myThread.IsAlive == false));
 
+       sw.Stop();
+
+        Debug.Log(sw.Elapsed.TotalSeconds.ToString());
+
         ThreadDone();
+
+
         completion = 1f;
 
         yield return null;

@@ -15,7 +15,7 @@ public class SaveToTexture
             var index = parent.PossibleComponents.IndexOf(tileGrid[i].PossibleIds[0]);
             
             var brightness = index / (float)(parent.PossibleComponents.Count - 1f);
-            Debug.Log(index.ToString());
+           // Debug.Log(index.ToString());
 
             texture.SetPixel(tileGrid[i].Coordinates.x, tileGrid[i].Coordinates.y, new Color(brightness,0,0));
 
