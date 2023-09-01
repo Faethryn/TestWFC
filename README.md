@@ -18,9 +18,12 @@ If the chain is unsuccessful, the generator takes a step back and does not push 
 # Map Serialization
 The map saves the ID's of each tile to a texture map, using the red channel as its save position, Due to using a texture to save the map, you are limited to resolutions that are multiples of 2. 
 
-![Map screenshot](https://github.com/Faethryn/TestWFC/assets/97239542/df81c362-0c78-4f39-b463-ba4a22c8fab6)
 
+![image_002_0000](https://github.com/Faethryn/TestWFC/assets/97239542/8eca7a3f-a2ea-40f0-91ac-c63626f3482c)
 
+![image_001_0000](https://github.com/Faethryn/TestWFC/assets/97239542/26221e23-24ba-4aea-974d-d4fc9cd741de)
+
+![image_003_0000](https://github.com/Faethryn/TestWFC/assets/97239542/48a731bc-0925-4a3c-9c9c-3f308e688dec)
 
 https://github.com/Faethryn/TestWFC/assets/97239542/67f3fcf1-2951-4ac4-9af2-79cd5c0432d8
 
