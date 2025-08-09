@@ -24,12 +24,10 @@ public class LabyrinthTile
 
     GameObject spawnedVersion = null;
 
-
     public LabyrinthTile(Vector2Int positionInMap)
     {
         Coordinates = positionInMap;
     }
-
 
     public LabyrinthTile(LabyrinthGenerator parentGenerator, Vector2Int positionInMap, List<TileComponent> possibleIds)
     {
@@ -52,7 +50,6 @@ public class LabyrinthTile
 
     public bool TrySelectState()
     {
-       
         var states = new List<TileComponent>(PossibleIds);
         while (states.Count > 0)
         {
@@ -71,7 +68,6 @@ public class LabyrinthTile
 
     public IEnumerator TrySelectStateCoroutine()
     {
-
         var states = new List<TileComponent>(PossibleIds);
         while (states.Count > 0)
         {
@@ -105,9 +101,6 @@ public class LabyrinthTile
         else
             return updateAdjacentTileActions.All(action => action.Invoke());
     }
-
-
-
 
     bool TryUpdateStates(LabyrinthTile otherTile, LabyrinthTile tileWithSelectedState, List<TryUpdateAction> updateAdjacentCellsActions)
     {
@@ -148,14 +141,11 @@ public class LabyrinthTile
         }
     }
 
-
-
     void AddOrUpdateToMapCellCashe(LabyrinthTile originallyUpdatedTile)
     {
         if (_mapTileCashe.ContainsKey(originallyUpdatedTile)) _mapTileCashe[originallyUpdatedTile] = new List<TileComponent>(PossibleIds);
         else _mapTileCashe.Add(originallyUpdatedTile , new List<TileComponent>(PossibleIds));
     }
-
 
     public void CreateSelf()
     {
@@ -175,8 +165,6 @@ public class LabyrinthTile
         spawnedVersion.transform.parent = parent.gameObject.transform;
     }
 
-
-
     public bool TileComponentOverride(TileComponent tileComponent)
     {
         var states = new List<TileComponent>(PossibleIds);
@@ -191,12 +179,5 @@ public class LabyrinthTile
             else return true;
         }
         return false;
-
     }
-
-
 }
-
-
-
-

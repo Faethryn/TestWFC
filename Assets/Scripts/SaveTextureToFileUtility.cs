@@ -62,7 +62,5 @@ public class SaveTextureToFileUtility
             Object.Destroy(tex);
         else
             Object.DestroyImmediate(tex);
-
     }
-
 }

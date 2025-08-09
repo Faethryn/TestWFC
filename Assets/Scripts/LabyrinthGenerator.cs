@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Threading;
 using System;
-using JetBrains.Annotations;
-using System.Diagnostics.Tracing;
 using UnityEngine.UI;
 
 
 public class LabyrinthGenerator : MonoBehaviour
 {
     [SerializeField]
-  public List<TileComponent> PossibleComponents = new List<TileComponent>();
+    public List<TileComponent> PossibleComponents = new List<TileComponent>();
+
     [SerializeField]
     private TileComponent _topComponent;
+
     [SerializeField]
     private TileComponent _bottomComponent;
+
     [SerializeField]
     private TileComponent _rightComponent;
+
     [SerializeField]
     private   TileComponent _leftComponent;
 
@@ -29,50 +30,27 @@ public class LabyrinthGenerator : MonoBehaviour
 
     public List<LabyrinthTile> TileGrid = new List<LabyrinthTile>();
 
-   
     public List<LabyrinthTile> CompletedTiles = new List<LabyrinthTile>();
-
 
     private int amountOfTiles = 0;
 
     private bool _isDone = false;
 
-
     [SerializeField]
     public float _tileSize = 2.0f;
-
 
     public List<GameObject> _SpawnedTiles = new List<GameObject>();
 
     [SerializeField] public TileComponent replacement;
 
-
     [SerializeField]
     private Image _image;
 
-
     void Start()
     {
-
-
-
-      
-
         InitializeMap();
         ExtraStartRules();
-
-
         StartCoroutine(ThreadRun());
-       
-
-        
-      
-
-      
-       
-       
-
-
         //foreach(List<Tile> tileRow in TileGrid) 
         //{
 
@@ -82,8 +60,6 @@ public class LabyrinthGenerator : MonoBehaviour
         //    }
 
         //}
-
-
     }
 
 
@@ -91,8 +67,7 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         if(_image != null)
         {
-
-        _image.fillAmount = completion;
+            _image.fillAmount = completion;
         }
     }
 
@@ -101,7 +76,6 @@ public class LabyrinthGenerator : MonoBehaviour
 
     IEnumerator ThreadRun()
     {
-
         Thread myThread = new Thread(FillCells);
 
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -111,31 +85,21 @@ public class LabyrinthGenerator : MonoBehaviour
         
         yield return new WaitUntil(() => (myThread.IsAlive == false));
 
-       sw.Stop();
+        sw.Stop();
 
         Debug.Log(sw.Elapsed.TotalSeconds.ToString());
 
         ThreadDone();
 
-
         completion = 1f;
 
         yield return null;
-
     }
-
-    
-
-   
-   
-    
-
 
     private void ThreadDone()
     {
         CreateMap();
         SaveToTexture.SaveTilesToTexture(GridSize, TileGrid, this);
-
     }
 
 
@@ -144,22 +108,13 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         for (int x = 0; x < GridSize.x; x++)
         {
-
-
             for (int y = 0; y < GridSize.y; y++)
             {
-
                 LabyrinthTile newTile = new LabyrinthTile(this, new Vector2Int(x, y), PossibleComponents);
 
-
-
                 TileGrid.Add(newTile);
-
-
             }
-
         }
-
 
         amountOfTiles = (int)(GridSize.x * GridSize.y);
     }
@@ -167,9 +122,7 @@ public class LabyrinthGenerator : MonoBehaviour
 
     void ExtraStartRules()
     {
-
         SetEdges();
-
     }
 
     void SetEdges()
@@ -179,7 +132,6 @@ public class LabyrinthGenerator : MonoBehaviour
         {
             for( int y = 0; y < GridSize.y ; y++  )
             {
-
                 if(y == 0 && (x > 0 && x < (GridSize.x -1)))
                 {
                     tile = GetTileAtCoord(new Vector2Int(x, y));
@@ -189,34 +141,25 @@ public class LabyrinthGenerator : MonoBehaviour
 
                 if(y == (GridSize.y -1) && (x > 0 && x < (GridSize.x - 1))) 
                 {
-
                     tile = GetTileAtCoord(new Vector2Int(x, y));
 
                     tile.TileComponentOverride(_topComponent);
-
                 }
 
                 if (x == (GridSize.x - 1) && (y > 0 && y < (GridSize.y - 1)))
                 {
-
                     tile = GetTileAtCoord(new Vector2Int(x, y));
 
                     tile.TileComponentOverride(_rightComponent);
-
                 }
                 if (x == 0 && (y > 0 && y < (GridSize.y - 1)))
                 {
-
                     tile = GetTileAtCoord(new Vector2Int(x, y));
 
                     tile.TileComponentOverride(_leftComponent);
-
                 }
-
             }
-
         }
-
     }
 
     void FillCells()
@@ -237,19 +180,7 @@ public class LabyrinthGenerator : MonoBehaviour
             cell = cellsWithUnselectedState.First(c => c.PossibleIds.Count() == minStatesCount);
         }
         while (cell.TrySelectState( ));
-
-        
-
     }
-
-
-
-
-
-
-
-
-
 
     void CreateMap()
     {
@@ -257,16 +188,10 @@ public class LabyrinthGenerator : MonoBehaviour
         {
             for (int j = 0; j < GridSize.y; j++)
             {
-                
-               
                GetTileAtCoord(new Vector2Int(i,j)).CreateSelf();
             }
         }
     }
-
-
-
-
 
     public LabyrinthTile GetTileAtCoord(Vector2Int coord)
     {
@@ -275,17 +200,12 @@ public class LabyrinthGenerator : MonoBehaviour
         return TileGrid[index];
     }
 
-   
-
-
     public class ThreadFinishedEventargs : EventArgs
     {
         public ThreadFinishedEventargs()
         {
 
         }
-        
-
     }
 
     public EventHandler<ThreadFinishedEventargs> ThreadFinished;
@@ -295,6 +215,4 @@ public class LabyrinthGenerator : MonoBehaviour
         var handler = ThreadFinished;
         handler?.Invoke(this, eventargs);
     }
-
-
 }

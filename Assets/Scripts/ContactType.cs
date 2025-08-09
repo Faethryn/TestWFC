@@ -9,11 +9,8 @@ public enum SideContactType
   wallEast,
   wallSouth,
   wallWest,
-  
- 
   empty
 }
-
 
 public enum Side
 {
@@ -30,8 +27,6 @@ public static class ContactDirectionInMap
     public static Vector2Int South = new Vector2Int(0, -1);
     public static Vector2Int East = new Vector2Int(1, 0);
     public static Vector2Int West = new Vector2Int(-1, 0);
-
-     
 }
 
 
@@ -40,7 +35,6 @@ public static class ContactDirectionInMap
 [CreateAssetMenu(menuName = "WFC/ContactType")]
 public class ContactType :ScriptableObject
 {
-
   [SerializeField]  private SideContactType _sideContactType;
 
     [SerializeField]
@@ -50,15 +44,9 @@ public class ContactType :ScriptableObject
 
     public List<SideContactType> CompatibleContacts => _compatibleContacts;
 
-
     public bool IsMatchingContacts(ContactType other)
     {
         return other.CompatibleContacts.Contains(SideContactType) &&
                CompatibleContacts.Contains(other.SideContactType);
     }
-
-
-
-
-
 }

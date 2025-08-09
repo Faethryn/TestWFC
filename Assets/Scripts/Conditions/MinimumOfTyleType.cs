@@ -13,7 +13,6 @@ public class MinimumOfTyleType : ExtraCondition
 
     public int minimumOfType = 1;
 
-
     public override bool ConditionCheck(LabyrinthGenerator generator, LabyrinthTile tileToApplyTo)
     {
 
@@ -33,29 +32,16 @@ public class MinimumOfTyleType : ExtraCondition
                 {
                     numberOfMatchingTiles++;
                 }
-
-
             }
-
-
         }
 
         if(numberOfMatchingTiles >= minimumOfType)
         {
-
-           
             return true;
         }
         else
         {
-        return false;
-
+            return false;
         }
-
-
-
-
     }
-
-   
 }
